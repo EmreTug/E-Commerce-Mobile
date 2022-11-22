@@ -1,0 +1,33 @@
+﻿{
+  "barcode": "123456",
+  "name": "T-Shirt",
+  "description": "Best Rain Jacket for Running ",
+  "stock": 15,
+  "price": 100,
+  "images": [
+    "https://images.squarespace-cdn.com/content/v1/5967e798893fc01de25613bb/1546621298147-1XVPY87DJBS2HQVW4ZKO/custom-printed-embroidered-t-shirts-tees-purple-the-print-locker-uk.png"
+  ],
+  "variants": [
+    {
+      "barcode": "1234",
+      "price": 830,
+      "stock": 10,
+      "images": [
+        "https://images.squarespace-cdn.com/content/v1/5967e798893fc01de25613bb/1546621298147-1XVPY87DJBS2HQVW4ZKO/custom-printed-embroidered-t-shirts-tees-purple-the-print-locker-uk.png"
+      ],
+      "variantNames": [
+        {
+          "variantValue": "purple",
+          "variantName": "color"
+        },
+        {
+          "variantValue": "small",
+          "variantName": "size"
+        }
+      ]
+    }
+  ]
+}
+
+
+  

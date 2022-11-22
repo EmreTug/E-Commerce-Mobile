@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:exampleproject1.customeRenderer" 
+    x:Class="exampleproject1.OrderBasket"
+             x:Name="orderBasketPage"
+    
+             xmlns:viewModels="clr-namespace:exampleproject1.ViewModel;assembly=exampleproject1 "
+    
+    NavigationPage.HasNavigationBar="True"
+ >
+    <ContentPage.BindingContext>
+        <viewModels:ProductViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content >
+        <Grid>
+
+            <CollectionView x:Name="sepet"
+                           Margin="0,20,0,0"
+                            
+                            BackgroundColor="#F7F8FB">
+                <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="20"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.EmptyView>
+                    <Frame  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White">
+                    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                        <Image Source="
+                        https://cdn3.iconfinder.com/data/icons/e-commerce-212/512/7_online_shopping-512.png
+                               " HeightRequest="65" WidthRequest="65"></Image>
+                            <Label Text="Sepetinizde Ürün Bulunmamaktadır" TextColor="Black" FontAttributes="Bold" FontSize="16" Margin="0,37,0,47"/>
+                            <Frame Padding="0" WidthRequest="233" HeightRequest="42" BackgroundColor="#22B07D"  CornerRadius="10" >
+                                <Label Text="Alışverişe Devam Et"  TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                                      Margin="0" FontSize="12" FontAttributes="Bold"></Label>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer  Tapped="TapGestureRecognizer_Tapped"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </StackLayout>
+                    </Frame>
+                </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItem Text="Delete" 
+                                           BackgroundColor="Red"
+                                          CommandParameter="{Binding}"
+                                             Invoked="deleteProduct"
+                                               Command="{Binding Path=BindingContext.DeleteProduct, 
+                                        Source={x:Reference orderBasketPage}}"/>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Grid  HeightRequest="160" BackgroundColor="White" Padding="15" Margin="0,0,0,0">
+
+                                <StackLayout  VerticalOptions="FillAndExpand" Orientation="Horizontal" 
+                                     HorizontalOptions="FillAndExpand" Padding="10,0,0,0" Margin="0,0,0,0">
+                                    
+                                        <Image  Source="{Binding image}" WidthRequest="100" HorizontalOptions="Start" Margin="0,0,20,0"
+                                      />
+                                    
+                                   
+                                        <StackLayout   VerticalOptions="CenterAndExpand">
+                                            <StackLayout Spacing="2" VerticalOptions="StartAndExpand" HorizontalOptions="Center">
+                                                <Label Text="{Binding ProductName}" TextColor="Black" MaxLines="2" WidthRequest="112"
+                                              HeightRequest="40" FontSize="16" FontAttributes="Bold" />
+                                                <Label Text="{Binding Description}" TextColor="Black" MaxLines="2" WidthRequest="112"
+                                              HeightRequest="30" FontSize="10" Opacity="0.5"/>
+
+                                                <Label Text="{Binding UnitPrice, StringFormat='{0} TL'}" TextColor="#22B07D" FontSize="14" 
+                                          FontAttributes="Bold"/>
+
+                                            </StackLayout>
+
+                                       
+                                            <Frame HasShadow="False" BackgroundColor="#22B07D" CornerRadius="10" HeightRequest="36"
+                                               HorizontalOptions="Center" VerticalOptions="EndAndExpand" BorderColor="#E6E7E7"
+                                               WidthRequest="112"  Padding="0" Margin="0" >
+                                                <StackLayout Orientation="Horizontal" Margin="0,0,0,0">
+                                                    <Frame Margin="0" Padding="0" BackgroundColor="White" HasShadow="False">
+                                                        <Grid BackgroundColor="Transparent">
+                                                            <Rectangle Aspect="Uniform" WidthRequest="36"/>
+                                                            <Path Aspect="Uniform" Stroke="#22B07D" StrokeThickness="2" Data="M5 12H19" StrokeLineCap="Round" 
+                          StrokeLineJoin="Round" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                        </Grid>
+
+
+                                                        <Frame.GestureRecognizers>
+                                                            <TapGestureRecognizer  Tapped="decrease"
+                                                CommandParameter="{Binding}" Command="{Binding Path=BindingContext.Decrease,  Source={x:Reference orderBasketPage}}"></TapGestureRecognizer>
+                                                        </Frame.GestureRecognizers>
+                                                    </Frame>
+
+
+                                                    <Grid Margin="0" Padding="0" BackgroundColor="#22B07D">
+                                                        <Entry Text="{Binding Quantity}" BackgroundColor="#22B07D"
+                                                       Keyboard="Numeric"  TextColor="White" Completed="Completed" ReturnCommandParameter="{Binding}" FontSize="14" 
+                                                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center" WidthRequest="40" HeightRequest="36" />
+                                                    </Grid>
+
+
+                                                    <Frame  Margin="0,0,0,0" Padding="0" BackgroundColor="White" HasShadow="False">
+                                                        <Grid>
+                                                            <Rectangle Aspect="Uniform" WidthRequest="36" />
+                                                            <Path Aspect="Uniform" Stroke="#22B07D" StrokeThickness="2" Data="M12 5V19" StrokeLineCap="Round" 
+                          StrokeLineJoin="Round" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                            <Path Aspect="Uniform" Stroke="#22B07D" StrokeThickness="2" Data="M5 12H19" StrokeLineCap="Round" 
+                          StrokeLineJoin="Round" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                        </Grid>
+
+                                                        <Frame.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="increase" CommandParameter="{Binding}" Command="{Binding Path=BindingContext.Increase,  Source={x:Reference orderBasketPage}}"></TapGestureRecognizer>
+
+                                                        </Frame.GestureRecognizers>
+                                                    </Frame>
+
+                                                </StackLayout>
+                                            </Frame>
+                                            <Label VerticalOptions="EndAndExpand" Text="{Binding Text}" TextColor="Red" FontSize="13"></Label>
+
+                                       
+                                        </StackLayout>
+                                   
+
+                                    
+                                        <Frame  HasShadow="False" HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand"
+                                           HeightRequest="25" WidthRequest="25"  BackgroundColor="White" Margin="0" Padding="0">
+                                            <Image Source="close_icon.png"
+                                            Aspect="Fill"></Image>
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="deleteProduct" CommandParameter="{Binding}" Command="{Binding Path=BindingContext.DeleteProduct,  Source={x:Reference orderBasketPage}}"></TapGestureRecognizer>
+                                            </Frame.GestureRecognizers>
+                                        </Frame>
+                                   
+
+                                </StackLayout>
+                            </Grid>
+
+
+
+                        </SwipeView>
+
+
+                    </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+            <Grid x:Name="OrderSummary"  HeightRequest="100" VerticalOptions ="End" BackgroundColor="White" RowSpacing="0" Margin="0,1,0,0">
+            <Frame  Margin="0,1,0,98" BackgroundColor="#ECEEF5" HasShadow="False" />
+
+            <StackLayout x:Name="StackLayoutOrderSummary" Orientation="Horizontal"  Margin="30,10,0,60" Spacing="0" >
+                <Label Text="Toplam" TextColor="Black" FontSize="12" Margin="0,8,0,0"></Label>
+
+
+            </StackLayout>
+
+
+            <StackLayout Orientation="Horizontal"  HeightRequest="60" Margin="0,40,0,0" >
+                <Label x:Name="price"  TextColor="Black" FontSize="12" FontAttributes="Bold" Margin="32,8,0,0" ></Label>
+                <Frame Margin="0,0,20,10" Padding="0" WidthRequest="180" HeightRequest="40" BackgroundColor="#22B07D" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" >
+                    <Label Text="Sepeti Onayla"  TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="12" FontAttributes="Bold" Margin="0"></Label>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="getConfirmOrder"  CommandParameter="{Binding .}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+
+            </StackLayout>
+
+        </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

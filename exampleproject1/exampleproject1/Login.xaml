@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:exampleproject1.customeRenderer" NavigationPage.HasNavigationBar="False"
+             xmlns:viewModels="clr-namespace:exampleproject1.ViewModel;assembly=exampleproject1 "
+             
+             x:Class="exampleproject1.Login">
+
+    <ContentPage.BindingContext>
+        <viewModels:LoginViewModel/>
+    </ContentPage.BindingContext>
+    <StackLayout Padding="0" BackgroundColor="LightGray">
+        <Grid>
+              <ActivityIndicator x:Name="activity"  
+                       IsRunning="False"  
+                       IsEnabled="False"  
+                       IsVisible="False"  
+                       Color="Blue"  
+                       BackgroundColor="Transparent"/>  
+           
+            <StackLayout Padding="0" Margin="0">
+                <Frame BackgroundColor="LightPink" HeightRequest="150" HorizontalOptions="FillAndExpand" Padding="0">
+                    <Image Source="giris.jpeg" Aspect="AspectFill" Margin="0"/>
+                </Frame>
+            </StackLayout>
+            
+            <StackLayout Margin="15,110,15,0">
+                
+                <Frame BackgroundColor="White" HasShadow="True" HeightRequest="480" HorizontalOptions="FillAndExpand" CornerRadius="30">
+
+                    <StackLayout>
+                        <StackLayout HorizontalOptions="CenterAndExpand">
+                            <Label Text="SIGN IN" FontSize="Medium" TextColor="Black" FontAttributes="Bold"></Label>
+                        </StackLayout>
+
+                        <StackLayout Margin="0,25,0,0">
+                            <Frame BackgroundColor="White" BorderColor="DarkGray" Padding="0" Margin="0" CornerRadius="15" HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Frame BackgroundColor="AliceBlue" HeightRequest="35" WidthRequest="35" CornerRadius="15" HorizontalOptions="Start" Margin="7" Padding="0">
+                                        <Image Source="user.png" Aspect="AspectFill" Margin="0"/>
+                                    </Frame>
+                                    <local:MyCustomEntry Text="{Binding Username}" HeightRequest="30"  x:Name="userName" BackgroundColor="White" PlaceholderColor="#2D2942"
+                               Placeholder="User Name"  FontSize="15" Opacity="0.5" TextColor="Gray" HorizontalOptions="FillAndExpand" Margin="0" >
+                                    </local:MyCustomEntry>
+                                  
+                                </StackLayout>
+
+                   
+                                  
+                              
+
+                             
+
+                            </Frame>
+                            <Frame BackgroundColor="White" BorderColor="DarkGray" Padding="0" Margin="0,20,0,0" CornerRadius="15" HorizontalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <Frame BackgroundColor="AliceBlue" HeightRequest="35" WidthRequest="35" CornerRadius="15" HorizontalOptions="Start" Margin="7" Padding="0">
+                                        <Image Source="password.png" Aspect="AspectFill" Margin="0"></Image>
+                                    </Frame>
+                                    <local:MyCustomEntry Text="{Binding Password}" HeightRequest="30"  x:Name="password" BackgroundColor="White" PlaceholderColor="#2D2942"
+                               Placeholder="User Name"  FontSize="15" Opacity="0.5" TextColor="Gray" HorizontalOptions="FillAndExpand" Margin="0" IsPassword="True" >
+                                    </local:MyCustomEntry>
+                                </StackLayout>
+                            </Frame>
+                            <StackLayout>
+                                <Label Text="{Binding Note}" TextColor="Red" FontAttributes="Bold" HorizontalTextAlignment="Center"></Label>
+                            </StackLayout>
+                            <Button x:Name="LoginButton" Text="SIGN IN" CornerRadius="20" BackgroundColor="Purple" TextColor="White" FontAttributes="Bold" Clicked="LoginCheck"  Command="{Binding LoginCommand}"></Button>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" >
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </Grid>
+    </StackLayout>
+
+</ContentPage>

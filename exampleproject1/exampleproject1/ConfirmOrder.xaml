@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:locall="clr-namespace:exampleproject1.Models"
+    xmlns:local="clr-namespace:exampleproject1.customeRenderer" 
+    x:Class="exampleproject1.ConfirmOrder"
+    xmlns:viewModels="clr-namespace:exampleproject1.ViewModel;assembly=exampleproject1 "
+    xmlns:behavior="clr-namespace:exampleproject1"  
+
+    x:Name="ConfirmOrderPage">
+
+
+    <ContentPage.BindingContext>
+        <viewModels:ConfirmOrderViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid>
+
+
+        <ScrollView BackgroundColor="#ECEEF5">
+
+
+            <StackLayout BackgroundColor="#ECEEF5">
+
+                <!--*******************************************-->
+                <!--İletişim Bilgileri -->
+                <!--*******************************************-->
+                <StackLayout>
+                    <Label Text="İletişim Bilgileri" TextColor="#22B07D" FontSize="16" FontAttributes="Bold" Margin="6,18,0,0"></Label>
+                    <Frame HeightRequest="245" BackgroundColor="White" HasShadow="False" Padding="0,0,0,0" >
+                        <StackLayout>
+
+
+                            <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                    <Frame HeightRequest="15" WidthRequest="80" HasShadow="False" BackgroundColor="Transparent" Padding="10,15,10,10" >
+                                        <Label Text="Adı" TextColor="Black" FontSize="14" FontAttributes="Bold" />
+                                    </Frame>
+                                    <local:MyCustomEntry  Text="{Binding Name, Mode=TwoWay}" HeightRequest="30" BackgroundColor="Transparent" PlaceholderColor="#B6B7C8"
+                               Placeholder="Adınızı Giriniz"  FontSize="15" Opacity="0.5" HorizontalOptions="FillAndExpand" TextColor="Black" >
+                                    </local:MyCustomEntry>
+                                </StackLayout>
+                                <BoxView HeightRequest="1" Color="#ECEEF5" Margin ="0, 0, 0, 0"/>
+
+
+                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                    <Frame HeightRequest="15" WidthRequest="80" HasShadow="False" BackgroundColor="Transparent" Padding="10,15,10,10" >
+                                        <Label Text="Soyadı" TextColor="Black" FontSize="14" FontAttributes="Bold" />
+                                    </Frame>
+                                    <local:MyCustomEntry  Text="{Binding LastName, Mode=TwoWay}" HeightRequest="30" BackgroundColor="Transparent" PlaceholderColor="#B6B7C8"
+                               Placeholder="Soyadı Giriniz"  FontSize="15" Opacity="0.5" HorizontalOptions="FillAndExpand" TextColor="Black">
+                                    </local:MyCustomEntry>
+                                </StackLayout>
+                                <BoxView HeightRequest="1" Color="#ECEEF5" Margin ="0, 0, 0, 0"/>
+
+
+                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                    <Label Margin="10,20" Text="Cep Telefonu" TextColor="Black" FontSize="14" FontAttributes="Bold" BackgroundColor="Transparent"/>
+                                    <local:MyCustomEntry  Text="{Binding PhoneNumber, Mode=TwoWay}" HeightRequest="60" BackgroundColor="Transparent" PlaceholderColor="#B6B7C8"
+                               Placeholder="Cep Telefonunuzu Giriniz" Keyboard="Numeric" FontSize="15" Opacity="0.5" HorizontalOptions="FillAndExpand" TextColor="Black" >
+ <Entry.Behaviors>  
+                <behavior:PhoneNumberMaskBehavior x:Name="PhoneMask" />  
+          <behavior:EntryLengthValidator MaxLength="12"/>  
+            </Entry.Behaviors> 
+                              
+
+                                    </local:MyCustomEntry>
+                                </StackLayout>
+                                <BoxView HeightRequest="1" Color="#ECEEF5" Margin ="0, 0, 0, 0"/>
+
+
+                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                    <Frame HeightRequest="15" WidthRequest="80" HasShadow="False" BackgroundColor="Transparent" Padding="10,15,10,10" >
+                                        <Label Text="E-posta" TextColor="Black" FontSize="14" FontAttributes="Bold" />
+                                    </Frame>
+                                    <local:MyCustomEntry  Text="{Binding Email, Mode=TwoWay}" HeightRequest="60" BackgroundColor="Transparent" PlaceholderColor="#B6B7C8"
+                               Placeholder="E-posta Adresinizi Giriniz" Keyboard="Email" FontSize="15" Opacity="0.5" HorizontalOptions="FillAndExpand" TextColor="Black">
+                                    </local:MyCustomEntry>
+                                </StackLayout>
+
+
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+
+                </StackLayout>
+
+
+                <!--*******************************************-->
+                <!--Adres Bilgileri -->
+                <!--*******************************************-->
+                <StackLayout>
+                    <Label Text="Adres Bilgileri" TextColor="#22B07D" FontSize="16" FontAttributes="Bold" Margin="6,18,0,0"></Label>
+                    <Frame HeightRequest="255" BackgroundColor="White" HasShadow="False" Padding="0,0,0,0" >
+                        <StackLayout>
+
+
+                            <StackLayout Orientation="Vertical">
+
+                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                    <Frame HeightRequest="15" WidthRequest="80" HasShadow="False" BackgroundColor="Transparent" Padding="10,20,10,15" >
+                                        <Label Text="İl" TextColor="Black" FontSize="14" FontAttributes="Bold" />
+                                    </Frame>
+                                    <local:MyCustomEntry  Text="{Binding City, Mode=TwoWay}" HeightRequest="30" BackgroundColor="Transparent" PlaceholderColor="#B6B7C8"
+                               Placeholder="İli Giriniz"  FontSize="15" Opacity="0.5" HorizontalOptions="FillAndExpand" TextColor="Black">
+                                    </local:MyCustomEntry>
+                                </StackLayout>
+                                <BoxView HeightRequest="1" Color="#ECEEF5" Margin ="0, 0, 0, 0"/>
+
+
+                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                    <Frame HeightRequest="15" WidthRequest="80" HasShadow="False" BackgroundColor="Transparent" Padding="10,20,10,15" >
+                                        <Label Text="İlçe" TextColor="Black" FontSize="14" FontAttributes="Bold" />
+                                    </Frame>
+                                    <local:MyCustomEntry  Text="{Binding Town, Mode=TwoWay}" HeightRequest="30" BackgroundColor="Transparent" PlaceholderColor="#B6B7C8"
+                               Placeholder="İlçeyi Giriniz"  FontSize="15" Opacity="0.5" HorizontalOptions="FillAndExpand" TextColor="Black">
+                                    </local:MyCustomEntry>
+                                </StackLayout>
+                                <BoxView HeightRequest="1" Color="#ECEEF5" Margin ="0, 0, 0, 0"/>
+
+
+                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                    <Frame HeightRequest="15" WidthRequest="80" HasShadow="False" BackgroundColor="Transparent" Padding="10,20,10,15" >
+                                        <Label Text="Adres" TextColor="Black" FontSize="14" FontAttributes="Bold" />
+                                    </Frame>
+                                    <local:MyCustomEntry  Text="{Binding Address, Mode=TwoWay}" HeightRequest="30" BackgroundColor="Transparent" PlaceholderColor="#B6B7C8"
+                               Placeholder="Adresinizi Giriniz"  FontSize="15" Opacity="0.5" HorizontalOptions="FillAndExpand" TextColor="Black">
+                                    </local:MyCustomEntry>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+
+                </StackLayout>
+
+                <!--*******************************************-->
+                <!--Fatura Bilgileri -->
+                <!--*******************************************-->
+
+                <StackLayout HeightRequest="300">
+                    <Label Text="Fatura Bilgileri" TextColor="#22B07D" FontSize="16" FontAttributes="Bold" Margin="6,18,0,0"></Label>
+                    <Frame HeightRequest="110" BackgroundColor="White" HasShadow="False" Padding="0,0,0,0" >
+                        <StackLayout>
+
+
+                            <StackLayout Orientation="Vertical">
+
+                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                    <Frame HeightRequest="18" WidthRequest="80" HasShadow="False" BackgroundColor="Transparent" Padding="10,20,10,15" >
+                                        <Label Text="Vergi Dairesi" TextColor="Black" FontSize="14" FontAttributes="Bold" />
+                                    </Frame>
+                                    <local:MyCustomEntry Text="{Binding TaxName, Mode=TwoWay}" HeightRequest="30" BackgroundColor="Transparent" PlaceholderColor="#B6B7C8"
+                               Placeholder="Vergi Dairesi Giriniz"  FontSize="15" Opacity="0.5" HorizontalOptions="FillAndExpand" TextColor="Black">
+                                    </local:MyCustomEntry>
+                                </StackLayout>
+                                <BoxView HeightRequest="1" Color="#ECEEF5" Margin ="0, 0, 0, 0"/>
+
+
+                                <StackLayout Orientation="Horizontal" Spacing="0">
+                                    <Frame HeightRequest="18" WidthRequest="80" HasShadow="False" BackgroundColor="Transparent" Padding="10,20,10,15" >
+                                        <Label Text="Vergi No" TextColor="Black" FontSize="14" FontAttributes="Bold" />
+                                    </Frame>
+                                    <local:MyCustomEntry Text="{Binding TaxNo, Mode=TwoWay}" HeightRequest="30" BackgroundColor="Transparent" PlaceholderColor="#B6B7C8"
+                               Placeholder="Vergi No Giriniz"  FontSize="15" Opacity="0.5" Keyboard="Numeric" HorizontalOptions="FillAndExpand" TextColor="Black">
+                                               
+                                    </local:MyCustomEntry>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+
+                </StackLayout>
+
+
+
+
+
+            </StackLayout>
+        </ScrollView>
+
+
+        <!--*******************************************-->
+        <!--TOPLAM SİPARİŞ -->
+        <!--*******************************************-->
+
+        <Grid x:Name="OrderSummary" HeightRequest="100" VerticalOptions ="End" BackgroundColor="White" RowSpacing="0" >
+            <Frame  Margin="0,1,0,98" BackgroundColor="#ECEEF5" HasShadow="False" />
+
+            <StackLayout x:Name="StackLayoutOrderSummary" Orientation="Horizontal"  Margin="0,10,0,60" Spacing="0" >
+                <Image x:Name="iconDown" Source="icon_down.png" WidthRequest="12" HeightRequest="6" Margin="10" ></Image>
+                <Label Text="Toplam" TextColor="Black" FontSize="12" Margin="0,8,0,0"></Label>
+
+
+
+            </StackLayout>
+
+
+            <StackLayout Orientation="Horizontal"  HeightRequest="60" Margin="0,40,0,0">
+                <Label x:Name="totalprice"  TextColor="Black" FontSize="12" FontAttributes="Bold" Margin="32,8,0,0" ></Label>
+                <Frame Margin="0,0,20,10" Padding="0" WidthRequest="180" HeightRequest="40" BackgroundColor="#22B07D" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" IsEnabled="{Binding Source={x:Static locall:StaticClass.Instance}, Path=IsBusy3}">
+                    <Label x:Name="bitir" Text="Onayla ve Bitir"  TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="12" FontAttributes="Bold" Margin="0"></Label>
+
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer  CommandParameter="{Binding}" Command="{Binding Path=BindingContext.ConfirmationOrder, Source={x:Reference ConfirmOrderPage}}" />
+                    </Frame.GestureRecognizers>
+
+                </Frame>
+
+
+            </StackLayout>
+
+        </Grid>
+        <Grid VerticalOptions="Center" HorizontalOptions="Center"   >
+            <AbsoluteLayout>
+                <ActivityIndicator x:Name="activity"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                      IsRunning="{Binding Source={x:Static locall:StaticClass.Instance}, Path=IsBusy2}" 
+                       IsEnabled="{Binding Source={x:Static locall:StaticClass.Instance}, Path=IsBusy2}" 
+                       IsVisible="{Binding Source={x:Static locall:StaticClass.Instance}, Path=IsBusy2}" 
+                       Color="Black"  
+                       Scale="2"
+                       BackgroundColor="Transparent"/>
+            </AbsoluteLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

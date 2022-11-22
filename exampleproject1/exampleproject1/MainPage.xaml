@@ -1,0 +1,388 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:exampleproject1.Models"
+              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:viewModels="clr-namespace:exampleproject1.ViewModel;assembly=exampleproject1 "
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             mc:Ignorable="d" NavigationPage.HasNavigationBar="False"
+             x:Name="prodctPage"
+             x:Class="exampleproject1.MainPage">
+
+    <ContentPage.BindingContext>
+        <viewModels:ProductViewModel/>
+    </ContentPage.BindingContext>
+
+   
+   
+
+    <Grid BackgroundColor="#F7F8FB" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="*" />
+        </Grid.RowDefinitions>
+        <BoxView 
+                 x:Name="Backdrop">
+        </BoxView>
+
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto,*" RowSpacing="10" Padding="10">
+            
+              <Grid Grid.Row="1"  Margin="14,40,14,0"  ColumnSpacing="20" >
+                    <Label FontSize="16" FontAttributes="Bold" VerticalTextAlignment="Center" Text="PraStore" HorizontalTextAlignment="Center" TextColor="Black">
+
+                         <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OpenSignoutPopUp" />
+                   </Label.GestureRecognizers>
+                    </Label>
+                  
+              </Grid>
+
+
+            <Grid Grid.Row="2" ColumnDefinitions="*, Auto" ColumnSpacing="15" Margin="14,5,14,0" >
+                <Frame Padding="0" BackgroundColor="Red" CornerRadius="10" BorderColor="#ECEEF5" HasShadow="False" HeightRequest="30" >
+                    <StackLayout Spacing="15" Orientation="Horizontal" BackgroundColor="White" HeightRequest="30" Padding="0" >
+                             <Image Source="barcode.png"  Margin="5,0,0,0"  Aspect="AspectFill" VerticalOptions="Center" HeightRequest="18" WidthRequest="25">
+                              
+
+                        </Image>
+ 
+
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer  CommandParameter="{Binding}" Command="{Binding Path=BindingContext.ScanBarcode, Source={x:Reference prodctPage}}" />
+                        </StackLayout.GestureRecognizers>
+
+                    </StackLayout>
+
+                </Frame>
+                <Grid Grid.Column="1" HorizontalOptions="End">
+                    <Ellipse HeightRequest="42" WidthRequest="42" />
+                    <ImageButton Source="filter.png" VerticalOptions="Center" HeightRequest="20" WidthRequest="20" BackgroundColor="GhostWhite" Clicked="ClickedFilterSection"></ImageButton>
+                </Grid>
+            </Grid>
+
+
+            <!--*******************************************-->
+            <!--KATEGORİ SEÇME-->
+            <!--*******************************************-->
+            <Grid Grid.Row="3"  Margin="14,0,14,0"  ColumnSpacing="15" >
+                <Frame x:Name="frameVisible" HeightRequest="30"  IsVisible="false" BackgroundColor="#F7F8FB" BorderColor="Transparent" HasShadow="False">
+                    <CollectionView
+
+                            HeightRequest="30"
+                            x:Name="CollectionViewFilters"
+                            BackgroundColor="#F7F8FB"
+                            ItemsSource="{Binding Filters}"
+                            >
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Horizontal" HorizontalItemSpacing="20"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame x:Name="filtersFramee" Padding="5,5,0,0" HeightRequest="30" WidthRequest="90" BackgroundColor="White" CornerRadius="10" HasShadow="False">
+                                    <Frame.Triggers>
+                                        <DataTrigger TargetType="Frame" Binding="{Binding IsSelected}" Value="True">
+                                            <Setter Property ="BackgroundColor" Value ="#22B07D"/>
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Frame" Binding="{Binding IsSelected}" Value="False">
+                                            <Setter Property ="BackgroundColor" Value ="White"/>
+                                        </DataTrigger>
+                                    </Frame.Triggers>
+
+                                    <Label Text="{Binding Name}"
+                                               Margin="0,3,0,0"
+                                               TextColor="Black"
+                                               HorizontalTextAlignment="Center"
+                                               FontAttributes="None"
+                                               FontSize="12"
+                                               MaxLines="2">
+
+                                    </Label>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding}" Command="{Binding Path=BindingContext.SelectFilter, Source={x:Reference prodctPage}}"/>
+                                    </Frame.GestureRecognizers>
+
+                                </Frame>
+
+                            </DataTemplate>
+
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+                </Frame>
+            </Grid>
+
+
+            <!--*******************************************-->
+            <!--ÜRÜNLERİ LİSTELEME -->
+            <!--*******************************************-->
+
+            <StackLayout Grid.Row="4" Margin="0,0,0,90" >
+
+
+                <CollectionView x:Name="collectionView"  
+                       RemainingItemsThresholdReachedCommand="{Binding Path=BindingContext.RemainingItemsThresholdReached, 
+                Source={x:Reference prodctPage}}"  RemainingItemsThreshold="0"
+                            SelectionMode="None" Margin="14,0,14,0" ItemsSource="{Binding AllProducts}" VerticalOptions="Start" HorizontalOptions="Start"  >
+
+
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="3"  VerticalItemSpacing="10" HorizontalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame  Padding="0,0,0,0" HeightRequest="210" BackgroundColor="White"  HasShadow="False" CornerRadius="20" >
+                                <Grid>
+                                    <StackLayout>
+                                        <StackLayout Orientation="Vertical" Spacing="0" >
+                                            <Frame Margin="15,20,15,3" Padding="0" HasShadow="False">
+                                                <Image Source="{Binding firstImage}"   HeightRequest="85" WidthRequest="85" BackgroundColor="White"></Image>
+
+                                            </Frame>
+                                            <Label Margin="10,0,0,0" Text="{Binding Name}" TextColor="#B6B7C8" HeightRequest="30"  FontSize="12" FontAttributes="None" MaxLines="2"/>
+                                            <Label Margin="10,0,0,0" Text="{Binding Price,StringFormat='{0} TL'}" HeightRequest="20" TextColor="Black"  FontSize="14" FontAttributes="None"/>
+
+
+                                        </StackLayout>
+                                    </StackLayout>
+
+                                    <Frame  CornerRadius="10"  BackgroundColor="#22B07D" 
+                                        HorizontalOptions="Center" Margin="10,10,10,10" VerticalOptions="End"  Padding="10,10,10,10" HasShadow="False" >
+                                        <Label Text="Sepete Ekle" FontSize="10" ></Label>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="CheckProductPopUp" CommandParameter="{Binding}" Command="{Binding Path=BindingContext.SelectProduct, Source={x:Reference prodctPage}}"/>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+
+                                </Grid>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="CheckProductDetailPage"  CommandParameter="{Binding}" Command="{Binding Path=BindingContext.SelectProductDetail, Source={x:Reference prodctPage}}"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+                <ActivityIndicator x:Name="activity2" HeightRequest="20"  
+                       HorizontalOptions="Center"
+                       VerticalOptions="End" Margin="0,0,0,0"
+                      IsRunning="{Binding  IsBusy2}" 
+                       IsEnabled="{Binding IsBusy2}" 
+                       IsVisible="{Binding IsBusy2}"
+                       Color="Black"  
+                     
+                       BackgroundColor="Transparent"/>
+
+
+            </StackLayout>
+
+        </Grid>
+
+
+        <!--*******************************************-->
+        <!--SİPARİŞ ÖZET -->
+        <!--*******************************************-->
+        <Frame x:Name="frameOrderSummary" Margin="0,400,0,0" HeightRequest ="30"  IsVisible="false" BackgroundColor="#ECEEF5" CornerRadius="25" BorderColor="Transparent" HasShadow="False">
+
+
+            <ListView x:Name="ListViewOrders" Margin="-10,5,0,100" ItemsSource="{Binding OrderLineList}" BackgroundColor="#ECEEF5">
+                <ListView.Header>
+                    <Grid BackgroundColor="#ECEEF5" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Ürün" HorizontalOptions="Fill"  Grid.Column="0" FontSize="14" FontAttributes="Bold" BackgroundColor="Transparent" TextColor="Black" HorizontalTextAlignment="Center" Margin="1"/>
+                        <Label Text="Özellik" HorizontalOptions="Fill" Grid.Column="1" FontSize="14" FontAttributes="Bold" BackgroundColor="Transparent" TextColor="Black" HorizontalTextAlignment="Center" Margin="1"/>
+                        <Label Text="Adet" HorizontalOptions="Fill" Grid.Column="2" FontSize="14" FontAttributes="Bold" BackgroundColor="Transparent" TextColor="Black" HorizontalTextAlignment="Center" Margin="1"/>
+                        <Label Text="Fiyat" HorizontalOptions="Fill" Grid.Column="3" FontSize="14" FontAttributes="Bold" BackgroundColor="Transparent" TextColor="Black" HorizontalTextAlignment="Center" Margin="1"/>
+
+                    </Grid>
+
+                </ListView.Header>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid BackgroundColor="#ECEEF5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text ="{Binding ProductName}" HorizontalOptions="Fill" BackgroundColor="Transparent" TextColor="Black" FontSize="12"  HorizontalTextAlignment="Center"  VerticalTextAlignment="Center" Margin="1"></Label>
+                                <Label Grid.Column="1" Text ="{Binding  Description}" HorizontalOptions="Fill" BackgroundColor="Transparent" TextColor="Black" FontSize="12"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="1"></Label>
+                                <Label Grid.Column="2" Text ="{Binding Quantity}" HorizontalOptions="Fill" BackgroundColor="Transparent" TextColor="Black" FontSize="12"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="1"></Label>
+                                <Label Grid.Column="3" Text ="{Binding TotalPrice,StringFormat='{0} TL'}" HorizontalOptions="Fill" BackgroundColor="Transparent" TextColor="Black" FontSize="12"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="1"></Label>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Frame>
+
+        <!--*******************************************-->
+        <!--TOPLAM SİPARİŞ -->
+        <!--*******************************************-->
+
+        <Grid  HeightRequest="100" VerticalOptions ="End" BackgroundColor="White" RowSpacing="0" >
+            <Frame  Margin="0,1,0,98" BackgroundColor="#ECEEF5" HasShadow="False" />
+
+            <StackLayout x:Name="StackLayoutOrderSummary" Orientation="Horizontal"  Margin="0,10,0,60" Spacing="0" >
+                <Image x:Name="iconDown" Source="icon_down.png" WidthRequest="12" HeightRequest="6" Margin="10" ></Image>
+                <Label Text="Toplam" TextColor="Black" FontSize="12" Margin="0,8,0,0"></Label>
+
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ClickedOrderSummary"  CommandParameter="{Binding .}"/>
+                </StackLayout.GestureRecognizers>
+
+            </StackLayout>
+
+
+            <StackLayout Orientation="Horizontal"  HeightRequest="60" Margin="0,40,0,0">
+                <Label x:Name="TotalPrice"  TextColor="Black" FontSize="12" FontAttributes="Bold" Margin="32,8,0,0" ></Label>
+                <Frame Margin="0,0,20,10" Padding="0" WidthRequest="180" HeightRequest="40" BackgroundColor="#22B07D" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" >
+                    <Label Text="Siparişi Onayla"  TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="12" FontAttributes="Bold" Margin="0"></Label>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ClickedConfirmOrder"  CommandParameter="{Binding .}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+
+            </StackLayout>
+
+        </Grid>
+
+
+
+        <!--*******************************************-->
+        <!--VARYANT POPUP -->
+        <!--*******************************************-->
+        <StackLayout  x:Name="bglayout" IsVisible="false" BackgroundColor="#95959595">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
+            </StackLayout.GestureRecognizers>
+            <Frame
+            x:Name="BottomToolbar"
+           HeightRequest="280"
+            VerticalOptions="End"
+            CornerRadius="20"
+            TranslationY="800"
+            Padding="15,6"
+                
+                BackgroundColor="White" >
+                <Frame.GestureRecognizers>
+                    <PanGestureRecognizer
+                    PanUpdated="PanGestureRecognizer_PanUpdated"
+            />
+                </Frame.GestureRecognizers>
+                <StackLayout Orientation="Vertical" Padding="0,4"  Spacing="0" BackgroundColor="White">
+                    <BoxView CornerRadius="2" HeightRequest="4" WidthRequest="40"
+                         BackgroundColor="LightGray"
+                         HorizontalOptions="Center" />
+
+                    <CollectionView 
+                             Margin="5,5,5,5"   
+                           
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand"
+                             ItemsSource="{Binding NewsItem}"
+                             BackgroundColor="White" >
+
+                        <CollectionView.ItemsLayout>
+
+                            <GridItemsLayout Orientation="Vertical"  VerticalItemSpacing="5"  />
+                        </CollectionView.ItemsLayout>
+
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+
+                                <StackLayout Orientation="Vertical">
+                                    <Label  Text="{Binding VariantName}" HorizontalOptions="FillAndExpand" Margin="0" 
+                                               FontSize="Body" VerticalOptions="FillAndExpand"   Opacity="0.5"
+                                            VerticalTextAlignment="Start" HorizontalTextAlignment="Start" TextColor="Black">
+                                    </Label>
+
+                                    <CollectionView
+                                           
+                                         
+                                         HeightRequest="30"
+                                         ItemsSource="{Binding VariantValues}"
+                                         BackgroundColor="White" >
+                                        <CollectionView.ItemsLayout>
+
+                                            <GridItemsLayout Orientation="Horizontal" HorizontalItemSpacing="5" />
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Frame Padding="0,0,0,0" HeightRequest="30" WidthRequest="90" BorderColor="LightGray"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="{Binding bgcolor}" 
+                                                        HasShadow="False" CornerRadius="5" >
+                                                    <Label  Text="{Binding VariantValue}" HorizontalOptions="FillAndExpand" Margin="0" 
+                                                                    FontSize="Body" VerticalOptions="FillAndExpand"   Opacity="0.5"
+                                                                    VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="Black" BackgroundColor="White">
+                                                    </Label>
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer CommandParameter="{Binding}" Command="{Binding Path=BindingContext.SelectVariant, Source={x:Reference prodctPage}}"/>
+                                                    </Frame.GestureRecognizers>
+
+                                                </Frame>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
+
+
+
+
+
+
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+
+
+                    </CollectionView>
+
+
+                    <Frame  Padding="14" WidthRequest="180" HeightRequest="68" CornerRadius="10" BackgroundColor="#22B07D" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" Margin="0,0,0,20" >
+                        <Label HeightRequest="26" Text="Sepete Ekle"  TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="12" FontAttributes="Bold" Margin="0"></Label>
+
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer  Tapped="CheckVariantPopUp" CommandParameter="{Binding}" Command="{Binding Path=BindingContext.AddBasket, Source={x:Reference prodctPage}}"/>
+                        </Frame.GestureRecognizers>
+
+                    </Frame>
+
+                </StackLayout>
+
+
+
+            </Frame>
+        </StackLayout>
+        <Grid VerticalOptions="Center" HorizontalOptions="Center"   >
+            <AbsoluteLayout>
+                <ActivityIndicator x:Name="activity"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                      IsRunning="{Binding Source={x:Static local:StaticClass.Instance}, Path=IsBusy}" 
+                       IsEnabled="{Binding Source={x:Static local:StaticClass.Instance}, Path=IsBusy}" 
+                       IsVisible="{Binding Source={x:Static local:StaticClass.Instance}, Path=IsBusy}" 
+                       Color="Black"  
+                       Scale="2"
+                       BackgroundColor="Transparent"/>
+            </AbsoluteLayout>
+        </Grid>
+    </Grid>
+
+</ContentPage>
